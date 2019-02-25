@@ -76,14 +76,18 @@ encodedFile = open(r"C:\Users\Gandalf\Documents\Senior Design\Internal Automatio
 for eachList in eegDataEncoded:
     #Each list has elements that are lines of EEG data, or a label at the last index
     label = eachList.pop()
+    encodedFile.write(label + ', ')
+    encodedFile.write(str(samplesBeforePress) + ', ')
+    
     for eachElement in eachList:
         data = re.match(eegDataStripped, eachElement)
         if data:
             iterableData = data.groups()
             for eachDatum in iterableData:
                 encodedFile.write(eachDatum + ', ')
-            #Now write the label and a newline and move to the next list of data
-    encodedFile.write(label + '\n')
+
+    #Now write a newline and move to the next list of data
+    encodedFile.write('\n')
 
 #Now the uniquely named file has samplesBeforePress number of EEG samples and a key-press label  
 encodedFile.close()
